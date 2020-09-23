@@ -7,7 +7,7 @@ module.exports = class HelloCommand extends Command {
       aliases: ["h"],
       group: "fun",
       memberName: "hello",
-      description: "Replies with pong.",
+      description: "Replies with hello.",
     });
   }
 
