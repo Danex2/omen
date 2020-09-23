@@ -1,0 +1,17 @@
+{
+  "name": "omen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "discord.js": "^12.3.1",
+    "discord.js-commando": "discordjs/Commando",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
