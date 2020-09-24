@@ -39,9 +39,7 @@ module.exports = class RollCommand extends Command {
         })
         .setFooter(date)
         .setColor("#384558");
-      return message
-        .embed(horoscopeEmbed)
-        .then(async (message) => await message.react("✨"));
+      return message.embed(horoscopeEmbed);
     } catch (e) {
       console.error(e);
     }

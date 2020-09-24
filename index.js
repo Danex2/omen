@@ -10,13 +10,16 @@ const client = new CommandoClient({
 
 client.registry
   .registerDefaultTypes()
-  .registerGroups([["fun", "Fun commands"]])
+  .registerGroups([
+    ["fun", "Fun commands"],
+    ["info", "Info commands"],
+  ])
   .registerDefaultGroups()
   .registerDefaultCommands({ help: false })
   .registerCommandsIn(path.join(__dirname, "commands"));
 
 client.once("ready", () => {
-  console.log(`${client.user.tag} is online ✨`);
+  console.log(`${client.user.tag} is online ⚡️`);
   client.user.setActivity("Discord.js");
 });
 
