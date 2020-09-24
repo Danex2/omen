@@ -5,11 +5,12 @@ require("dotenv").config({ path: "./.env.development" });
 const client = new CommandoClient({
   commandPrefix: "!!",
   owner: process.env.OWNER_ID,
+  unknownCommandResponse: false,
 });
 
 client.registry
   .registerDefaultTypes()
-  .registerGroups([["fun", "Your First Command Group"]])
+  .registerGroups([["fun", "Fun commands"]])
   .registerDefaultGroups()
   .registerDefaultCommands({ help: false })
   .registerCommandsIn(path.join(__dirname, "commands"));
