@@ -17,34 +17,29 @@ module.exports = class ServerCommand extends Command {
      * Total members
      * Total roles
      * Server creation date
-     * Online members
      * Guild owner
      */
 
     const roles = message.guild.roles.cache.size;
-    const serverCreationDate = new Intl.DateTimeFormat().format(
-      message.guild.createdAt
-    );
-
-    const onlineMembers = message.guild.members.cache.filter(
-      (member) => member.presence.status !== "offline"
-    ).size;
-
-    console.log(message.guild.members.cache);
+    const serverCreationDate = new Intl.DateTimeFormat("en", {
+      timeStyle: "full",
+      dateStyle: "full",
+    }).format(message.guild.createdAt);
 
     const serverEmbed = new MessageEmbed()
-      .setTitle(`Information about ${message.guild.name}`)
+      .setTitle(`Server ID: ${message.guild.id}`)
+      .setAuthor(message.guild.name, message.guild.iconURL())
       .setThumbnail(message.guild.iconURL())
       .addFields(
         {
           name: "Members",
           value: message.guild.memberCount,
+          inline: true,
         },
-        { name: "Roles", value: roles },
-        { name: "Created", value: serverCreationDate },
+        { name: "Roles", value: roles, inline: true },
+        { name: "Region", value: message.guild.region, inline: true },
         { name: "Owner", value: message.guild.owner },
-        { name: "Region", value: message.guild.region },
-        { name: "Online Members", value: onlineMembers }
+        { name: "Created", value: serverCreationDate }
       )
       .setColor("#384558");
 
