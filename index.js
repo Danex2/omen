@@ -13,6 +13,7 @@ client.registry
   .registerGroups([
     ["fun", "Fun commands"],
     ["info", "Info commands"],
+    ["moderation", "Mod commands"],
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({ help: false })

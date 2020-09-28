@@ -14,43 +14,58 @@ module.exports = class ServerCommand extends Command {
           key: "user",
           prompt: "Enter a username",
           type: "string",
+          default: "",
         },
       ],
     });
   }
 
   run(message, { user }) {
-    const roles = message.guild.roles.cache.size;
-    const userJoinDate = new Intl.DateTimeFormat("en", {
-      timeStyle: "full",
-      dateStyle: "full",
-    }).format(message.guild.createdAt);
-
-    const userCreateDate = new Intl.DateTimeFormat("en", {
-      timeStyle: "full",
-      dateStyle: "full",
-    }).format(message.author.createdAt);
-
-    console.log(message.member.joinedAt);
+    let userJoinDate;
+    let userCreateDate;
 
     if (!user) {
+      userJoinDate = new Intl.DateTimeFormat("en", {
+        timeStyle: "medium",
+        dateStyle: "full",
+      }).format(message.member.joinedAt);
+
+      userCreateDate = new Intl.DateTimeFormat("en", {
+        timeStyle: "medium",
+        dateStyle: "full",
+      }).format(message.author.createdAt);
+
       const serverEmbed = new MessageEmbed()
         .setAuthor(message.author.username, message.author.avatarURL())
-        .addFields({ name: "Account creation date", value: userCreateDate })
+        .addFields(
+          { name: "Account creation date", value: userCreateDate },
+          { name: "Join date", value: userJoinDate }
+        )
         .setColor("#384558");
       return message.embed(serverEmbed);
     } else {
-      console.log(message.mentions.users.first());
-      console.log("yo");
+      userJoinDate = new Intl.DateTimeFormat("en", {
+        timeStyle: "medium",
+        dateStyle: "full",
+      }).format(message.mentions.members.first().joinedTimestamp);
+
+      userCreateDate = new Intl.DateTimeFormat("en", {
+        timeStyle: "medium",
+        dateStyle: "full",
+      }).format(message.mentions.members.first().user.createdAt);
+
       const serverEmbed = new MessageEmbed()
         .setAuthor(
           message.mentions.users.first().username,
           message.mentions.users.first().avatarURL()
         )
-        .addFields({
-          name: "Account creation date",
-          value: message.mentions.users.first().avatarURL().createdAt,
-        })
+        .addFields(
+          { name: "Creation date", value: userCreateDate },
+          {
+            name: "Join date",
+            value: userJoinDate,
+          }
+        )
         .setColor("#384558");
       return message.embed(serverEmbed);
     }
