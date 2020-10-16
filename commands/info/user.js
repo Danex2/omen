@@ -1,7 +1,7 @@
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class ServerCommand extends Command {
+module.exports = class UserCommand extends Command {
   constructor(client) {
     super(client, {
       name: "user",
@@ -14,60 +14,46 @@ module.exports = class ServerCommand extends Command {
           key: "user",
           prompt: "Enter a username",
           type: "string",
-          default: "",
         },
       ],
     });
   }
 
-  run(message, { user }) {
-    let userJoinDate;
-    let userCreateDate;
+  run(message) {
+    const userJoinDate = new Intl.DateTimeFormat("en", {
+      timeStyle: "medium",
+      dateStyle: "full",
+    }).format(message.mentions.members.first().joinedTimestamp);
 
-    if (!user) {
-      userJoinDate = new Intl.DateTimeFormat("en", {
-        timeStyle: "medium",
-        dateStyle: "full",
-      }).format(message.member.joinedAt);
+    const userCreateDate = new Intl.DateTimeFormat("en", {
+      timeStyle: "medium",
+      dateStyle: "full",
+    }).format(message.mentions.members.first().user.createdAt);
 
-      userCreateDate = new Intl.DateTimeFormat("en", {
-        timeStyle: "medium",
-        dateStyle: "full",
-      }).format(message.author.createdAt);
+    const userRoles = message.mentions.members
+      .first()
+      .roles.cache.filter((role) => role.name !== "@everyone")
+      .map((role) => `<@&${role.id}>`);
 
-      const serverEmbed = new MessageEmbed()
-        .setAuthor(message.author.username, message.author.avatarURL())
-        .addFields(
-          { name: "Account creation date", value: userCreateDate },
-          { name: "Join date", value: userJoinDate }
-        )
-        .setColor("#384558");
-      return message.embed(serverEmbed);
-    } else {
-      userJoinDate = new Intl.DateTimeFormat("en", {
-        timeStyle: "medium",
-        dateStyle: "full",
-      }).format(message.mentions.members.first().joinedTimestamp);
-
-      userCreateDate = new Intl.DateTimeFormat("en", {
-        timeStyle: "medium",
-        dateStyle: "full",
-      }).format(message.mentions.members.first().user.createdAt);
-
-      const serverEmbed = new MessageEmbed()
-        .setAuthor(
-          message.mentions.users.first().username,
-          message.mentions.users.first().avatarURL()
-        )
-        .addFields(
-          { name: "Creation date", value: userCreateDate },
-          {
-            name: "Join date",
-            value: userJoinDate,
-          }
-        )
-        .setColor("#384558");
-      return message.embed(serverEmbed);
-    }
+    const serverEmbed = new MessageEmbed()
+      .setAuthor(
+        message.mentions.users.first().username,
+        message.mentions.users.first().avatarURL()
+      )
+      .addFields(
+        {
+          name: `Roles [${message.mentions.members.first()._roles.length}]`,
+          value: userRoles,
+          inline: true,
+        },
+        {
+          name: "Server join date",
+          value: userJoinDate,
+        },
+        { name: "Creation date", value: userCreateDate }
+      )
+      .setColor("#384558")
+      .setTimestamp();
+    return message.embed(serverEmbed);
   }
 };

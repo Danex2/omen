@@ -36,7 +36,11 @@ module.exports = class KickCommand extends Command {
       })
       .setTimestamp()
       .setColor("#384558");
-    message.member.mentions.first().kick(reason).catch(console.error);
-    return message.embed(kickEmbed);
+
+    return message.mentions.members
+      .first()
+      .kick(reason)
+      .then((message) => message.embed(kickEmbed))
+      .catch((e) => message.say("No user with that name exists"));
   }
 };
