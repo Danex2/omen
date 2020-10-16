@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files: 
+  - source: /
+    destination: /usr/src/app
+hooks:
+  BeforeInstall: 
+    - location: scripts/install_dependencies.sh
+      runsas: root
+      timeout: 360
