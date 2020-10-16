@@ -2,4 +2,4 @@
 
 cd ~/app
 
-killall node
+pm2 stop omen

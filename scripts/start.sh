@@ -2,4 +2,4 @@
 
 cd ~/app
 
-npm run dev
+pm2 start index.js --name omen
