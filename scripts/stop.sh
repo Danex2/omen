@@ -2,4 +2,4 @@
 
 cd ~/app
 
-pm2 stop omen
+pm2 stop omen || true
