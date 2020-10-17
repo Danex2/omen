@@ -1,5 +1,5 @@
 #!/bin/env bash
 
-cd ~/app
+cd /home/ec2-user/app
 
 pm2 stop omen || true
