@@ -2,4 +2,4 @@
 
 cd /home/ec2-user/app
 
-yarn start 
+pm2 start -f index.js --name omen
