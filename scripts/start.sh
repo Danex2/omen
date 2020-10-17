@@ -2,4 +2,4 @@
 
 cd /home/ec2-user/app
 
-pm2 start index.js --name omen
+pm2 start -f index.js --name omen
