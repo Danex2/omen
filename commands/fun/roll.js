@@ -23,7 +23,7 @@ module.exports = class RollCommand extends Command {
     // add delay after inital message eventually
 
     return message
-      .say("You roll the dice...")
+      .say("You roll the dice..............................")
       .then((message) =>
         message.edit(
           `The result is ${Math.floor(Math.random() * (number - 1) + 1)}`
