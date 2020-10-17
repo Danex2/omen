@@ -6,7 +6,7 @@ files:
 hooks:
   BeforeInstall:
     - location: scripts/install.sh
-      runsas: root
+      runas: root
       timeout: 360
   AfterInstall:
     - location: scripts/node_deps.sh
