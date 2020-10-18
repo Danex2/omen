@@ -1,6 +1,9 @@
 const { CommandoClient } = require("discord.js-commando");
 const path = require("path");
+const AWS = require("aws-sdk")
 require("dotenv").config({ path: "./.env.development" });
+
+const ssm = new AWS.SSM({apiVersion: '2014-11-06', region: 'us-east-1'})
 
 const client = new CommandoClient({
   commandPrefix: "!!",
@@ -26,4 +29,7 @@ client.once("ready", () => {
 
 client.on("error", console.error);
 
-client.login(process.env.TOKEN);
+ssm.getParameter({Name: 'TOKEN'}, (err, data) => {
+  if (err) console.error(err)
+  client.login(data.Parameter.Value);
+})
