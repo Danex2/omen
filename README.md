@@ -5,7 +5,7 @@ Omen is a discord bot I am working on in my spare time, it is a moderation bot w
 ## Tech
 
 Discord.js  
-AWS (CodeDeploy, CodePipeline)
+AWS (CodeDeploy, CodePipeline)  
 Various APIs for external services
 
 ## Contribute

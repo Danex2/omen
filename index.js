@@ -6,7 +6,7 @@ require("dotenv").config({ path: "./.env.development" });
 const ssm = new AWS.SSM({apiVersion: '2014-11-06', region: 'us-east-1'})
 
 const client = new CommandoClient({
-  commandPrefix: "!!",
+  commandPrefix: process.env.NODE_ENV === "development" ? "**" : "!!",
   owner: process.env.OWNER_ID,
   unknownCommandResponse: false,
 });
@@ -29,7 +29,7 @@ client.once("ready", () => {
 
 client.on("error", console.error);
 
-ssm.getParameter({Name: 'TOKEN'}, (err, data) => {
+process.env.NODE_ENV !== "development" ? ssm.getParameter({Name: 'TOKEN'}, (err, data) => {
   if (err) console.error(err)
   client.login(data.Parameter.Value);
-})
+}) : client.login(process.env.TOKEN)
