@@ -21,7 +21,7 @@ module.exports = class ServerCommand extends Command {
      */
 
     const roles = message.guild.roles.cache.size;
-    const serverCreationDate = new Intl.DateTimeFormat("en", {
+    const serverCreationDate = new Intl.DateTimeFormat("en-US", {
       timeStyle: "full",
       dateStyle: "full",
     }).format(message.guild.createdAt);
