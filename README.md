@@ -30,4 +30,16 @@ Rename the `.env.sample` file to `.env.development` and add your bot token and y
 
 ## Running the bot
 
+### Without docker
+
 To run the bot in development mode type `yarn dev`.
+
+### With docker
+
+``docker pull dmiller94/omen:latest``  
+
+Then inside of the project directory  
+
+``docker run --name omen -d -v $(pwd):/app dmiller94/omen:latest``  
+
+
