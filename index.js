@@ -29,7 +29,6 @@ client.once("ready", () => {
 
 client.on("error", console.error);
 
-console.log(process.env.TOKEN)
 
 process.env.NODE_ENV !== "development" ? ssm.getParameter({Name: 'TOKEN'}, (err, data) => {
   if (err) console.error(err)

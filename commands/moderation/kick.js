@@ -40,7 +40,7 @@ module.exports = class KickCommand extends Command {
     return message.mentions.members
       .first()
       .kick(reason)
-      .then((message) => message.embed(kickEmbed))
-      .catch((e) => message.say("No user with that name exists"));
+      .then((message) => console.log(message))
+
   }
 };
