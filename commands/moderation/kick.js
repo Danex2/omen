@@ -37,10 +37,12 @@ module.exports = class KickCommand extends Command {
       .setTimestamp()
       .setColor("#384558");
 
-    return message.mentions.members
+      // Should check if user exists, right permissions, role permissions etc
+
+     message.mentions.members
       .first()
       .kick(reason)
-      .then((message) => console.log(message))
+      return message.embed(kickEmbed)
 
   }
 };
