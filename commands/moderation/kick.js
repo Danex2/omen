@@ -1,7 +1,9 @@
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class KickCommand extends Command {
+module.exports = class KickCommand extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: "kick",
@@ -11,6 +13,7 @@ module.exports = class KickCommand extends Command {
       description: "Kick a user from the discord server",
       clientPermissions: ["ADMINISTRATOR"],
       userPermissions: ["ADMINISTRATOR", "KICK_MEMBERS"],
+      guildOnly: true,
       args: [
         {
           key: "user",
@@ -37,12 +40,7 @@ module.exports = class KickCommand extends Command {
       .setTimestamp()
       .setColor("#384558");
 
-      // Should check if user exists, right permissions, role permissions etc
-
-     message.mentions.members
-      .first()
-      .kick(reason)
-      return message.embed(kickEmbed)
-
+    message.mentions.members.first().kick(reason);
+    return message.embed(kickEmbed);
   }
 };

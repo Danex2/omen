@@ -2,7 +2,9 @@ const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 const got = require("got");
 
-module.exports = class RollCommand extends Command {
+module.exports = class RollCommand extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: "horoscope",
@@ -10,6 +12,7 @@ module.exports = class RollCommand extends Command {
       group: "fun",
       memberName: "horoscope",
       description: "Returns the horoscope message of the day",
+      guildOnly: true,
       args: [
         {
           key: "sign",

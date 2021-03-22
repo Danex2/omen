@@ -1,6 +1,8 @@
 const { Command } = require("discord.js-commando");
 
-module.exports = class RollCommand extends Command {
+module.exports = class RollCommand extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: "roll",
@@ -8,6 +10,7 @@ module.exports = class RollCommand extends Command {
       group: "fun",
       memberName: "roll",
       description: "Roll from 1 to whatever number the user specifies",
+      guildOnly: true,
       args: [
         {
           key: "number",

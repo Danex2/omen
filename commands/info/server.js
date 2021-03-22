@@ -9,6 +9,7 @@ module.exports = class ServerCommand extends Command {
       group: "info",
       memberName: "server",
       description: "Basic info about the current server",
+      guildOnly: true,
     });
   }
 
@@ -34,10 +35,9 @@ module.exports = class ServerCommand extends Command {
         {
           name: "Members",
           value: message.guild.memberCount,
-          inline: true,
         },
-        { name: "Roles", value: roles, inline: true },
-        { name: "Region", value: message.guild.region, inline: true },
+        { name: "Roles", value: roles },
+        { name: "Region", value: message.guild.region },
         { name: "Owner", value: message.guild.owner },
         { name: "Created", value: serverCreationDate }
       )

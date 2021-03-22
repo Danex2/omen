@@ -1,7 +1,9 @@
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class UserCommand extends Command {
+module.exports = class UserCommand extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: "user",
@@ -9,6 +11,7 @@ module.exports = class UserCommand extends Command {
       group: "info",
       memberName: "user",
       description: "Basic info about the user",
+      guildOnly: true,
       args: [
         {
           key: "user",
