@@ -1,13 +1,10 @@
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class KickCommand extends (
-  Command
-) {
+module.exports = class KickCommand extends Command {
   constructor(client) {
     super(client, {
       name: "kick",
-      aliases: ["k"],
       group: "moderation",
       memberName: "kick",
       description: "Kick a user from the discord server",

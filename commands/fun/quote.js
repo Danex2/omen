@@ -2,13 +2,10 @@ const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 const got = require("got");
 
-module.exports = class QuoteCommand extends (
-  Command
-) {
+module.exports = class QuoteCommand extends Command {
   constructor(client) {
     super(client, {
       name: "quote",
-      aliases: ["q"],
       group: "fun",
       memberName: "quote",
       description: "Replies with a random quote",

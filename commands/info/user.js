@@ -1,13 +1,10 @@
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class UserCommand extends (
-  Command
-) {
+module.exports = class UserCommand extends Command {
   constructor(client) {
     super(client, {
       name: "user",
-      aliases: ["u"],
       group: "info",
       memberName: "user",
       description: "Basic info about the user",
@@ -19,14 +16,29 @@ module.exports = class UserCommand extends (
           type: "string",
         },
       ],
+      argsPromptLimit: 0,
+      examples: ["!!user <@user>"],
     });
   }
 
+  onError(error, message) {
+    console.log(error.stack);
+    return message.say(
+      "There was an error processing the command, please try again in a few minutes"
+    );
+  }
+
+  usage(command, prefix, user) {
+    return;
+  }
+
   run(message) {
+    const user = message.mentions.users.first();
+
     const userJoinDate = new Intl.DateTimeFormat("en", {
       timeStyle: "medium",
       dateStyle: "full",
-    }).format(message.mentions.members.first().joinedTimestamp);
+    }).format(user.joinedTimestamp);
 
     const userCreateDate = new Intl.DateTimeFormat("en", {
       timeStyle: "medium",
@@ -38,25 +50,31 @@ module.exports = class UserCommand extends (
       .roles.cache.filter((role) => role.name !== "@everyone")
       .map((role) => `<@&${role.id}>`);
 
-    const serverEmbed = new MessageEmbed()
-      .setAuthor(
-        message.mentions.users.first().username,
-        message.mentions.users.first().avatarURL()
-      )
+    const userEmbed = new MessageEmbed()
+      .setAuthor(user.username, user.avatarURL())
       .addFields(
         {
-          name: `Roles [${message.mentions.members.first()._roles.length}]`,
-          value: userRoles,
-          inline: true,
+          name: "User ID",
+          value: user.id,
+        },
+        {
+          name: "Avatar URL",
+          value: `[Link](${user.avatarURL()})`,
+        },
+        {
+          name: `Roles [${userRoles.length}]`,
+          value: userRoles.length > 0 ? userRoles : "none",
         },
         {
           name: "Server join date",
           value: userJoinDate,
         },
-        { name: "Creation date", value: userCreateDate }
+        { name: "Account creation date", value: userCreateDate }
       )
       .setColor("#384558")
+      .setThumbnail(user.avatarURL())
       .setTimestamp();
-    return message.embed(serverEmbed);
+
+    return message.embed(userEmbed);
   }
 };

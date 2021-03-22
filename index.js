@@ -20,12 +20,11 @@ client.registry
     ["moderation", "Mod commands"],
   ])
   .registerDefaultGroups()
-  .registerDefaultCommands({ help: true })
   .registerCommandsIn(path.join(__dirname, "commands"));
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online ⚡️`);
-  client.user.setActivity("!help");
+  client.user.setActivity("!!help");
 });
 
 client.on("error", console.error);

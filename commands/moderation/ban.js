@@ -1,13 +1,10 @@
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class BanCommand extends (
-  Command
-) {
+module.exports = class BanCommand extends Command {
   constructor(client) {
     super(client, {
       name: "ban",
-      aliases: ["b"],
       group: "moderation",
       memberName: "ban",
       description: "Ban a user from the discord server",

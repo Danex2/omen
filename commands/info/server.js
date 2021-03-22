@@ -5,7 +5,6 @@ module.exports = class ServerCommand extends Command {
   constructor(client) {
     super(client, {
       name: "server",
-      aliases: ["s"],
       group: "info",
       memberName: "server",
       description: "Basic info about the current server",
@@ -41,7 +40,8 @@ module.exports = class ServerCommand extends Command {
         { name: "Owner", value: message.guild.owner },
         { name: "Created", value: serverCreationDate }
       )
-      .setColor("#384558");
+      .setColor("#384558")
+      .setTimestamp();
 
     return message.embed(serverEmbed);
   }
