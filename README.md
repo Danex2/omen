@@ -12,7 +12,7 @@ Various APIs for external services
 
 ### Clone the repository
 
-`git clone https://github.com/Danex2/omen.git`
+`git clone https://github.com/nulfrost/nirvash.git`
 
 ### Install the dependencies
 
