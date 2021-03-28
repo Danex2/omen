@@ -105,3 +105,5 @@ process.env.NODE_ENV !== "development"
       client.login(data.Parameter.Value);
     })
   : client.login(process.env.TOKEN);
+
+exports.prefix = prefix;

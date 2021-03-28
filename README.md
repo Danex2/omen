@@ -1,6 +1,6 @@
-## Omen Discord Bot
+## Nirvash Discord Bot
 
-Omen is a discord bot I am working on in my spare time, it is a moderation bot with extra fun features like telling you your horoscope or telling a joke!
+Nirvash is a feature rich discord bot I am working on in my spare time to learn new things and possibly provide a learning resource for people that want to get into making bots.
 
 ## Tech
 
@@ -30,16 +30,4 @@ Rename the `.env.sample` file to `.env.development` and add your bot token and y
 
 ## Running the bot
 
-### Without docker
-
 To run the bot in development mode type `yarn dev`.
-
-### With docker
-
-``docker pull dmiller94/omen:latest``  
-
-Then inside of the project directory  
-
-``docker run --name omen -d -v $(pwd):/app dmiller94/omen:latest``  
-
-

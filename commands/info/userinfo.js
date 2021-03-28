@@ -4,6 +4,10 @@ const { formatDate } = require("../../lib/util");
 module.exports = {
   name: "userinfo",
   description: "Get info about the user",
+  usage: "!!userinfo | !!userinfo <@user>",
+  cooldown: 1,
+  category: "info",
+  guildOnly: true,
   async execute(message) {
     const taggedMember = message.mentions.users.first();
 
