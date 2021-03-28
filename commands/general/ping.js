@@ -1,8 +1,12 @@
 module.exports = {
   name: "ping",
-  description: "Test ping command.",
+  description: "Replies with pong along with the ping in milliseconds",
   cooldown: 3,
-  execute(message) {
-    message.channel.send("Pong.");
+  async execute(message) {
+    const channelMessage = await message.channel.send("Pong.");
+
+    await channelMessage.edit(
+      `${channelMessage.content} ${message.client.ws.ping}ms`
+    );
   },
 };
