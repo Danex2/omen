@@ -25,7 +25,10 @@ const prefix = "!!";
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online ⚡️`);
-  client.user.setActivity("!!help");
+  client.user.setPresence({
+    activity: { name: "Still in development!" },
+    status: "dnd",
+  });
 });
 
 client.on("message", (message) => {
