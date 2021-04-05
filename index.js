@@ -49,6 +49,7 @@ client.on("message", (message) => {
     return message.reply("I can't execute that command inside DMs!");
   }
 
+  // Check bot permissions as well as display error message if the bot doesn't have enough priv
   if (command.permissions) {
     const authorPerms = message.channel.permissionsFor(message.author);
     if (!authorPerms || !authorPerms.has(command.permissions)) {

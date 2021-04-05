@@ -9,70 +9,38 @@ module.exports = {
   category: "info",
   guildOnly: true,
   async execute(message) {
-    const taggedMember = message.mentions.users.first();
+    const taggedMember = message.mentions.users.first() || message.author;
+    const taggedMemberExtraInfo =
+      message.mentions.members.first() || message.member;
 
     const userEmbed = new MessageEmbed();
 
-    if (!message.mentions.users.size) {
-      // didn't tag anyone so get my info
-      userEmbed
-        .setColor("#E78F8E")
-        .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setTitle(`ID: ${message.author.id}`)
-        .setThumbnail(message.author.displayAvatarURL())
-        .addFields(
-          {
-            name: "Nickname",
-            value: message.member.displayName,
-          },
-          {
-            name: "Server join date",
-            value: formatDate(message.member.joinedTimestamp),
-          },
-          {
-            name: "Account creation date",
-            value: formatDate(message.author.createdTimestamp),
-          },
-          {
-            name: `Roles [${message.member._roles.length}]`,
-            value: !message.member._roles.length
-              ? "None"
-              : message.member._roles.map((role) => `<@&${role}>`),
-          }
-        );
+    userEmbed
+      .setColor("#E78F8E")
+      .setAuthor(taggedMember.tag, taggedMember.displayAvatarURL())
+      .setTitle(`ID: ${taggedMember.id}`)
+      .setThumbnail(taggedMember.displayAvatarURL())
+      .addFields(
+        {
+          name: "Nickname",
+          value: taggedMemberExtraInfo.nickname ?? "N/A",
+        },
+        {
+          name: "Server join date",
+          value: formatDate(taggedMemberExtraInfo.joinedTimestamp),
+        },
+        {
+          name: "Account creation date",
+          value: formatDate(taggedMember.createdTimestamp),
+        },
+        {
+          name: `Roles [${taggedMemberExtraInfo._roles.length}]`,
+          value: !taggedMemberExtraInfo._roles.length
+            ? "None"
+            : taggedMemberExtraInfo._roles.map((role) => `<@&${role}>`),
+        }
+      );
 
-      await message.channel.send(userEmbed);
-    } else {
-      // get info about tagged user
-      userEmbed
-        .setColor("#E78F8E")
-        .setAuthor(taggedMember.tag, taggedMember.displayAvatarURL())
-        .setTitle(`ID: ${taggedMember.id}`)
-        .setThumbnail(taggedMember.displayAvatarURL())
-        .addFields(
-          {
-            name: "Nickname",
-            value: message.mentions.members.first().displayName,
-          },
-          {
-            name: "Server join date",
-            value: formatDate(message.mentions.members.first().joinedTimestamp),
-          },
-          {
-            name: "Account creation date",
-            value: formatDate(taggedMember.createdTimestamp),
-          },
-          {
-            name: `Roles [${message.mentions.members.first()._roles.length}]`,
-            value: !message.mentions.members.first()._roles.length
-              ? "None"
-              : message.mentions.members
-                  .first()
-                  ._roles.map((role) => `<@&${role}>`),
-          }
-        );
-
-      await message.channel.send(userEmbed);
-    }
+    await message.channel.send(userEmbed);
   },
 };

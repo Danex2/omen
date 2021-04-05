@@ -22,7 +22,7 @@ module.exports = {
         { name: "Owner", value: server.owner },
         { name: "Members", value: server.memberCount },
         {
-          name: "Channels (Text + Voice)",
+          name: "Channels (Text + Voice + Category)",
           value: server.channels.cache.size,
           inline: true,
         },
